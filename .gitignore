@@ -1,0 +1,4 @@
+.idea/
+*.pdf
+*.swp
+!pdf_reference*.pdf
