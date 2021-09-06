@@ -1,12 +1,19 @@
 # pdf-remove-watermarks
 
-__09.2020 - 02.2021__
+__09.2020 - 09.2021__
 
-[Adobe PDF Reference Archives](https://www.adobe.com/devnet/pdf/pdf_reference_archive.html)
+Обработка PDF файлов при помощи [CAM::PDF](https://metacpan.org/pod/CAM::PDF).
 
+CAM::PDF давно не обновляется, поддерживает только спецификацию pdf 1.3.
+На более новых файлах вываливается с ошибкой при сохранении изменений.
+Для работы нужно предварительно понизить версию, если это возможно.
 
-Ланит
------
+Adobe PDF Reference versions 1.3, 1.4, and 1.7 in the doc folder.
+На сайте Adobe очень сложно искать, возможно не знаю, что нужно спрашивать.
+Загруженные файлы нашел по внешним ссылкам через Google.
+
+remove_lanit.pl
+---------------
 
 Столкнулся с добавлением в хорошие файлы логотипов Ланит - по 2 штуки на страницу.
 
@@ -15,16 +22,11 @@ __09.2020 - 02.2021__
 
 После этого при оптимизации файла в Acrobat DC удаляются неиспользуемые картинки и ссылки.
 
-Обработаны следующие файлы:
-
-1. Курт - Программируй на Haskell.2019.pdf - уменьшение размера в 4 раза с 8мб до 2,5мб.
-2. Вейн - Swift.Подробно.2020
-
 ```bash
 remove_lanit.pl file.pdf [out.pdf] [first_page]
 ```
-Ланит
------
+remove_lanit2.pl
+----------------
 
 Тот же Ланит, но контент состоит из массива из 3 стримов, первый пустой - размер 10 байт, второй основной,
 вроде без изменений и 3 - это стрим с маркерами.
@@ -33,8 +35,10 @@ remove_lanit.pl file.pdf [out.pdf] [first_page]
 remove_lanit2.pl file.pdf [out.pdf] [first_page]
 ```
 
-red alitebooks.com
+remove_alitebook.pl
 ------------------
+
+Red alitebooks.com
 
 Alitebook превращает Contents в массив - добавляет 1 stream в начало и 3 streams добавляет
 в конец. Сработало выдергивание из массива первого элемента и подстановка его в качестве
@@ -51,8 +55,8 @@ Alitebook превращает Contents в массив - добавляет 1 s
 remove_alitebook.pl file.pdf [out.pdf] [first_page]
 ```
 
-удалить последний блок q\<block>Q
----------------------------------
+remove_last_block_q.pl
+----------------------
 
 Несколько файлов с добавленным в конец дополнительным блоком q..Q.
 
@@ -66,14 +70,14 @@ remove_alitebook.pl file.pdf [out.pdf] [first_page]
 remove_last_block_q.pl file.pdf [out.pdf] [first_page]
 ```
 
-scan page content
------------------
+remove_lang_from_content.pl
+---------------------------
 
 Scan and remove string from the page content "/Lang (en-US)".
 First need convert to the lover version PDF - 1.3 (Acrobat 4). Otherwise, get error - not compatible stream format!!
 
-remove LastModified attribute from the page
--------------------------------------------
+remove_lastmodified.pl
+----------------------
 
 Scan all pages and remove single attribute LastModified.
 
